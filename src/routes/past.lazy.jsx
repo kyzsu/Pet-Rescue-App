@@ -4,6 +4,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import getPastOrders from "../api/getPastOrders";
 import getPastOrder from "../api/getPastOrder";
 import Modal from "../Modal";
+import ErrorBoundary from "../ErrorBoundary";
 
 // masuk ke past.lazy, kita import Modal.
 
@@ -14,14 +15,26 @@ const intl = new Intl.NumberFormat("en-US", {
 
 // buat routenya.
 export const Route = createLazyFileRoute("/past")({
-  component: PastOrdersRoute,
+  component: ErrorBoundaryWrappedPastOrderRoutes,
 });
+
+// disini, hamba istirahat dulu. ngikut jam sini. wkwk
+// 15 mins.
+
+function ErrorBoundaryWrappedPastOrderRoutes() {
+  return (
+    <ErrorBoundary>
+      <PastOrdersRoute />
+    </ErrorBoundary>
+  );
+}
 
 function PastOrdersRoute() {
   // untuk simpan id order yang sedang aktif.
   const [focusedOrder, setFocusedOrder] = useState();
   // usestate untuk pagination
   const [page, setPage] = useState(1);
+  // throw new Error("lol");
 
   // useQuery buat manggil fungsi getPastOrders.
   // useQuery menerima sebuah object. atribut wajib adalah queryKey dan queryFn(function).

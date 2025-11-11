@@ -19,6 +19,11 @@ function Index() {
         <li>
           <Link to="/past">Past Orders</Link>
         </li>
+
+        {/* tambahkan link supaya bisa akses kontak */}
+        <li>
+          <Link to="/contact">Contact</Link>
+        </li>
       </ul>
     </div>
   );
